@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+# Create the videos.xml file for roksbox
+
+XML="/var/www/html/media/video/videos.xml"
+VIDEODIR="/var/www/html/media/video"
+
+echo "<xml>" > $XML
+echo " <viddb>" >> $XML
+find "${VIDEODIR}" -type f \( -name "*.xml" ! -name videos.xml \) -print0 | xargs -0 cat >> $XML
+echo " </viddb>" >> $XML
+echo "</xml>" >> $XML

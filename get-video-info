@@ -1,0 +1,19 @@
+#!/bin/bash
+
+SCRIPTDIR=`dirname $0`
+
+function usage {
+	echo "USAGE:"
+	echo $0 [IMDB ID] [video file]
+
+}
+
+if [ $# != 2 ]; then
+	echo "ERROR: wrong number of arguments"
+	usage
+fi
+
+${SCRIPTDIR}/imdbdataget.pl "$1" "$2" > "${2}.xml"
+
+${SCRIPTDIR}/update-video-xml
+
