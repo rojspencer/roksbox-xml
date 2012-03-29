@@ -136,7 +136,7 @@ if ( $series ne "") {
 }
 
 if ( $image ne "" ) {
-	$imagefile = "${imagedir}/" . `basename $file`;
+	$imagefile = "${imagedir}/" . `basename "$file"`;
 	$imagefile =~ s/\n/.jpg/;
 	`/usr/bin/wget -q --tries=5 --wait=1 --retry-connrefused -U "Mozilla/5.0 (compatible;)" -O "$imagefile" "$image"`;
 	$imageurl = $imagefile;
