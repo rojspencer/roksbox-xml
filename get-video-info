@@ -13,7 +13,11 @@ if [ $# != 2 ]; then
 	usage
 fi
 
-${SCRIPTDIR}/imdbdataget.pl "$1" "$2" > "${2}.xml"
+# Remove any symbolic links from file name (allows link from home directory to /var/www/html/media/video -- with xml file containing correct path)
+
+REALPATH=$(readlink -f -m "${2}")
+
+${SCRIPTDIR}/imdbdataget.pl "$1" "$REALPATH" > "${REALPATH}.xml"
 
 ${SCRIPTDIR}/update-video-xml
 

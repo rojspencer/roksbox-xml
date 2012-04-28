@@ -6,6 +6,11 @@
 XML="/var/www/html/media/video/videos.xml"
 VIDEODIR="/var/www/html/media/video"
 
+
+# Remove any latest tags older than 2 weeks
+find ${VIDEODIR} -type f -mtime +14 \(  -name "*.xml" ! -name "videos.xml" \) -printf  "\"%p\"\n" | xargs  sed -i s/,-Latest// 1&> /dev/null
+
+# Gather all the xmls into videos.xml
 echo "<xml>" > $XML
 echo " <viddb>" >> $XML
 find "${VIDEODIR}" -type f \( -name "*.xml" ! -name videos.xml \) -print0 | xargs -0 cat >> $XML

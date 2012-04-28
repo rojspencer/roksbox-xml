@@ -132,7 +132,7 @@ if ( $season ne "") {
 
 if ( $series ne "") {
 	$genres = "[TV/$series/$season]";
-	$title=~s/^(".*")/$1 S${season}E${episode}/
+	$title=~s/^(".*")/$1 S${season}E${episode}/;
 }
 
 if ( $image ne "" ) {
@@ -143,8 +143,9 @@ if ( $image ne "" ) {
 	$imageurl =~ s/.*(images\/.*)/$1/;
 }
 
+# Add -Latest tag for easier finding
+$genres .= ',-Latest';
 # Output data to STDOUT as xml or text in UTF-8
-
 binmode (STDOUT, ':encoding(utf8)');
 
 #print "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<movie>\n";
