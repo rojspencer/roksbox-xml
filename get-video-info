@@ -8,6 +8,15 @@ function usage {
 
 }
 
+# output info on the movie just added
+function output {
+
+	echo "Title:   "`grep \<origtitle\> "${REALPATH}.xml" | sed 's/.*<origtitle>\(.*\)<\/origtitle>/\1/'`
+	echo "Year:    "`grep \<year\> "${REALPATH}.xml" | sed 's/.*<year>\(.*\)<\/year>/\1/'`
+	echo "Rating:  "`grep \<mpaa\> "${REALPATH}.xml" | sed 's/.*<mpaa>\(.*\)<\/mpaa>/\1/'`
+
+}
+
 if [ $# != 2 ]; then
 	echo "ERROR: wrong number of arguments"
 	usage
@@ -20,4 +29,6 @@ REALPATH=$(readlink -f -m "${2}")
 ${SCRIPTDIR}/imdbdataget.pl "$1" "$REALPATH" > "${REALPATH}.xml"
 
 ${SCRIPTDIR}/update-video-xml
+
+output
 
